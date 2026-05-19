@@ -24,9 +24,6 @@ exports.getGoalSheet = async (req, res) => {
   }
 };
 
-// @desc    Create and submit a goal sheet
-// @route   POST /api/goalsheets
-// @access  Private (Employee)
 exports.createGoalSheet = async (req, res) => {
   try {
     const { goals, status = 'Submitted' } = req.body;
@@ -41,11 +38,19 @@ exports.createGoalSheet = async (req, res) => {
 
     let totalWeight = 0;
     for (let i = 0; i < goals.length; i++) {
-      if (!goals[i].title || !goals[i].description || !goals[i].thrustArea || !goals[i].uom || goals[i].weightage === undefined) {
-        return res.status(400).json({ success: false, error: `Goal #${i + 1} is missing required fields` });
-      }
-      if (goals[i].weightage < 10) {
-        return res.status(400).json({ success: false, error: `Goal #${i + 1} must have minimum 10% weightage` });
+      // For Submit: enforce all required fields
+      if (status === 'Submitted') {
+        if (!goals[i].title || !goals[i].description || !goals[i].thrustArea || !goals[i].uom || goals[i].weightage === undefined) {
+          return res.status(400).json({ success: false, error: `Goal #${i + 1} is missing required fields` });
+        }
+        if (goals[i].weightage < 10) {
+          return res.status(400).json({ success: false, error: `Goal #${i + 1} must have minimum 10% weightage` });
+        }
+      } else {
+        // For Draft: only require title to identify the goal
+        if (!goals[i].title) {
+          return res.status(400).json({ success: false, error: `Goal #${i + 1} must have at least a title` });
+        }
       }
       totalWeight += Number(goals[i].weightage) || 0;
     }
@@ -76,13 +81,19 @@ exports.createGoalSheet = async (req, res) => {
       await goalSheet.save();
     }
 
-    // Insert new goals
-    const goalsToInsert = goals.map(g => ({
-      ...g,
-      goalSheetId: goalSheet._id
-    }));
+    // Strip frontend-only fields and sanitize before inserting to DB
+    const goalsToInsert = goals.map(g => {
+      const { isSaved, _id, id, ...cleanGoal } = g;
+      return {
+        ...cleanGoal,
+        goalSheetId: goalSheet._id,
+        // Convert empty string target to undefined so Mongoose Number type doesn't fail
+        target: cleanGoal.target === '' || cleanGoal.target === null ? undefined : Number(cleanGoal.target) || undefined,
+        weightage: Number(cleanGoal.weightage) || 10
+      };
+    });
 
-    await Goal.insertMany(goalsToInsert);
+    await Goal.insertMany(goalsToInsert, { ordered: false });
 
     const populatedSheet = await GoalSheet.findById(goalSheet._id).populate('goals');
 
@@ -97,6 +108,7 @@ exports.createGoalSheet = async (req, res) => {
   
   }
 };
+
 
 // @desc    Approve or Return Goal Sheet
 // @route   PUT /api/goalsheets/:id/approve
