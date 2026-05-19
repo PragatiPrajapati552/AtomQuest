@@ -12,7 +12,9 @@ const sendTokenResponse = (user, statusCode, res) => {
     expires: new Date(
       Date.now() + 30 * 24 * 60 * 60 * 1000 // 30 days
     ),
-    httpOnly: true
+    httpOnly: true,
+    secure: true,        // Required for cross-site cookies
+    sameSite: 'none'     // Required for cross-site cookies (Vercel <-> Render)
   };
 
   res
@@ -92,7 +94,9 @@ exports.getMe = async (req, res) => {
 exports.logout = async (req, res) => {
   res.cookie('token', 'none', {
     expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
   });
 
   res.status(200).json({
