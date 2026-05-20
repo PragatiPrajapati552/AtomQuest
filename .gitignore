@@ -14,3 +14,9 @@ yarn-debug.log*
 # Misc
 .DS_Store
 *.pem
+
+# Local files not to be pushed to git
+problem_statement.docx
+problem_statement.txt
+project_documentation.md
+
