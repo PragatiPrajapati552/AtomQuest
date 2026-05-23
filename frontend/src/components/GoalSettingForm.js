@@ -114,7 +114,7 @@ export default function GoalSettingForm({ existingGoals = [], onSuccess }) {
     <div className="space-y-6">
       
       {/* Weightage Progress Bar */}
-      <div className="glass-card p-6 flex items-center justify-between sticky top-4 z-20">
+      <div className="glass-card p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sticky top-4 z-20">
         <div>
           <h2 className="text-xl font-semibold text-white">Goal Weightage</h2>
           <p className="text-slate-400 text-sm mt-1">{goals.length}/8 Goals Added</p>
@@ -145,7 +145,7 @@ export default function GoalSettingForm({ existingGoals = [], onSuccess }) {
               <Trash2 className="w-5 h-5" />
             </button>
             
-            <div className="flex justify-between items-center mb-4 pr-8">
+            <div className="flex flex-col sm:flex-row justify-between sm:items-center mb-4 pr-8 gap-2">
               <h3 className="font-medium text-white flex items-center gap-2">
                 Goal #${index + 1} 
                 {goal.isSaved && <span className="text-emerald-400 text-xs font-medium ml-2 px-2 py-1 bg-emerald-500/10 rounded-full">Saved to Draft</span>}

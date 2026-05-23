@@ -41,7 +41,7 @@ export default function ManagerDashboard() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="glass-card p-6 border-l-4 border-l-blue-500">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start gap-4">
             <div>
               <p className="text-sm text-slate-400 mb-1">Pending Approvals</p>
               <p className="text-3xl font-bold text-white">{pendingApprovals}</p>
@@ -50,7 +50,7 @@ export default function ManagerDashboard() {
           </div>
         </div>
         <div className="glass-card p-6 border-l-4 border-l-emerald-500">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start gap-4">
             <div>
               <p className="text-sm text-slate-400 mb-1">Approved</p>
               <p className="text-3xl font-bold text-white">{approvedGoals}</p>
@@ -59,7 +59,7 @@ export default function ManagerDashboard() {
           </div>
         </div>
         <div className="glass-card p-6 border-l-4 border-l-red-500">
-          <div className="flex justify-between items-start">
+          <div className="flex justify-between items-start gap-4">
             <div>
               <p className="text-sm text-slate-400 mb-1">Action Required</p>
               <p className="text-3xl font-bold text-white">{noGoals}</p>
@@ -70,7 +70,7 @@ export default function ManagerDashboard() {
       </div>
 
       <div className="glass-card overflow-hidden">
-        <div className="p-6 border-b border-white/10 flex justify-between items-center">
+        <div className="p-6 border-b border-white/10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <h2 className="text-xl font-semibold text-white flex items-center gap-2">
             <Users className="w-5 h-5" /> Team Members
           </h2>

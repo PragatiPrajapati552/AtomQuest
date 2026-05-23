@@ -55,7 +55,7 @@ export default function EmployeeDashboard() {
   if (!goalSheet) {
     return (
       <DashboardLayout>
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl font-bold text-white tracking-tight">My Goals</h1>
             <p className="text-slate-400 mt-1">Manage your objectives for FY 2026-2027</p>
@@ -97,7 +97,7 @@ export default function EmployeeDashboard() {
 
   return (
     <DashboardLayout>
-      <div className="flex justify-between items-start mb-8">
+      <div className="flex flex-col sm:flex-row justify-between items-start mb-8 gap-4">
         <div>
           <h1 className="text-3xl font-bold text-white tracking-tight">My Goals</h1>
           <p className="text-slate-400 mt-1">FY 2026-2027 Goal Sheet</p>
@@ -106,7 +106,7 @@ export default function EmployeeDashboard() {
       </div>
 
       {goalSheet.status === 'Returned' && (
-        <div className="mb-6 p-4 glass-card border border-red-500/30 flex justify-between items-center">
+        <div className="mb-6 p-4 glass-card border border-red-500/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
             <h3 className="text-red-400 font-medium">Your manager returned this sheet for rework.</h3>
             <p className="text-sm text-slate-400 mt-1">Please review and adjust your goals, then resubmit.</p>
@@ -137,7 +137,7 @@ export default function EmployeeDashboard() {
       <div className="space-y-4">
         {goalSheet.goals?.map((goal, index) => (
           <div key={goal._id} className="glass-card p-6 border-l-4 border-l-blue-500">
-            <div className="flex justify-between items-start mb-4">
+            <div className="flex justify-between items-start mb-4 gap-4">
               <div>
                 <span className="text-xs font-semibold text-blue-400 tracking-wider uppercase mb-1 block">
                   {goal.thrustArea}
@@ -150,7 +150,7 @@ export default function EmployeeDashboard() {
               </div>
             </div>
             <p className="text-slate-300 text-sm mb-4 leading-relaxed">{goal.description}</p>
-            <div className="flex gap-6 bg-slate-800/50 p-4 rounded-lg inline-flex">
+            <div className="flex flex-wrap gap-4 sm:gap-6 bg-slate-800/50 p-4 rounded-lg inline-flex">
               <div>
                 <span className="text-xs text-slate-500 block mb-1">Target</span>
                 <span className="font-medium text-white">{goal.target} {goal.uom === '%' ? '%' : ''}</span>

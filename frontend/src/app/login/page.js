@@ -27,7 +27,7 @@ export default function Login() {
       <div className="absolute top-1/4 left-1/4 w-72 h-72 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
       <div className="absolute top-1/3 right-1/4 w-72 h-72 bg-emerald-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
 
-      <div className="glass-card w-full max-w-md p-8 relative z-10">
+      <div className="glass-card w-full max-w-md p-6 sm:p-8 relative z-10">
         
         <div className="flex flex-col items-center mb-8">
           <div className="p-3 bg-blue-500/10 rounded-full mb-4">
